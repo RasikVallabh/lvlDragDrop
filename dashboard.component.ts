@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {BsDatepickerConfig} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor() { }
+  datePickerConfig: Partial<BsDatepickerConfig>
+  constructor() {
+    this.datePickerConfig = Object.assign({},{containerClass: 'theme-default'});
+  }
   ngOnInit() {
   }
 
