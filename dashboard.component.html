@@ -1,5 +1,5 @@
-<div id="table1" class=" table-responsive-sm">
-  <table class="table table-sm">
+<form [formGroup] ="approvalsForm">
+  <table class="table table-sm table-responsive-sm">
     <thead>
     <tr>
       <th>Column2</th>
@@ -11,42 +11,37 @@
     <tbody >
 <tr>
   <td>
-    <div class="btn-group" dropdown>
-    <button id="button-basic" dropdownToggle type="button"
-            class="btn btn-secondary btn-sm dropdown-toggle"
-            aria-controls="dropdown-basic">
-      Button dropdown <span class="caret"></span>
-    </button>
-      <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu"
-          role="menu" aria-labelledby="button-dropup">
-        <li role="menuitem" class="dropdown-item">Action</li>
-        <li role="menuitem" class="dropdown-item">Another action</li>
-        <li role="menuitem" class="dropdown-item">Something else here</li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem" class="dropdown-item">Separated link</li>
-      </ul>
-</div>
-  </td>
-  <td><input type="text"></td>
-  <td>
-    <p><code>bsValue</code> property sets initial state in this example</p>
-    <div class="row">
-      <div class="col-xs-12 col-12 col-md-4 form-group">
-        <input type="text"
-               class="form-control"
-               #dp="bsDatepicker"
-               bsDatepicker
-               [bsConfig] = "datePickerConfig"
-               [bsValue]="bsValue">
+    <div class="dropdown form-control" formControlName="sector">
+      <button class="btn btn-sm dropdown-toggle dropdown-style"
+              type="button" id="approvals-sector-name" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" >
+        Please select sector
+      </button>
+      <div class="dropdown-menu dropdown-lg-item" aria-labelledby="dropdownMenuButton">
+        <li *ngFor="let sector of sectors" >
+          <a class="dropdown-item">{{sector}}</a>
+        </li>
       </div>
-
     </div>
-
   </td>
-  <td><input type="file"></td>
+
+  <td><input class="form-control" type="text"></td>
+  <td>
+        <input type="text" class=" input-sm form-control</form>" #dp="bsDatepicker" bsDatepicker
+               [bsConfig] = "datePickerConfig" [bsValue]="bsValue">
+  </td>
+  <td>
+    <div class="input-group mb-3">
+      <div class="custom-file">
+        <input type="file" class="input-sm custom-file-input form-control" id="inputGroupFile01">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+      </div>
+    </div>
+  </td>
 </tr>
     </tbody>
   </table>
-</div>
-  <div><input type="button" class="btn btn"></div>
 
+  <button type="button" class="btn btn-sm btn-secondary">Add More</button>
+  <pre>{{approvalsForm.value | json}}</pre>
+</form>
