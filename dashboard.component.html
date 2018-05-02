@@ -1,47 +1,89 @@
-<form [formGroup] ="approvalsForm">
+<form [formGroup]="approvalForm" novalidate >
+
   <table class="table table-sm table-responsive-sm">
     <thead>
     <tr>
-      <th>Column2</th>
-      <th>Column3</th>
-      <th>Column4</th>
-      <th>Column9</th>
+      <th>Sector</th>
+      <th>Name</th>
+      <th>Date</th>
     </tr>
     </thead>
-    <tbody >
-<tr>
-  <td>
-    <div class="dropdown form-control" formControlName="sector">
-      <button class="btn btn-sm dropdown-toggle dropdown-style"
-              type="button" id="approvals-sector-name" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" >
-        Please select sector
-      </button>
-      <div class="dropdown-menu dropdown-lg-item" aria-labelledby="dropdownMenuButton">
-        <li *ngFor="let sector of sectors" >
-          <a class="dropdown-item">{{sector}}</a>
-        </li>
-      </div>
-    </div>
-  </td>
 
-  <td><input class="form-control" type="text"></td>
-  <td>
-        <input type="text" class=" input-sm form-control</form>" #dp="bsDatepicker" bsDatepicker
-               [bsConfig] = "datePickerConfig" [bsValue]="bsValue">
-  </td>
-  <td>
-    <div class="input-group mb-3">
-      <div class="custom-file">
-        <input type="file" class="input-sm custom-file-input form-control" id="inputGroupFile01">
-        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    <tbody formArrayName="sectors">
+
+    <tr *ngFor="let sector of approvalForm.controls.sectors.controls; let i=index" [formGroupName]="i">
+      <div >
+    <td>
+
+      <div >
+        <select type="button"  id="button-basic" dropdownToggle type="text" class="btn btn-sm dropdown-toggle"
+                aria-controls="dropdown-basic" formControlName="app_sector_approvalSector" (ngModelChange)="onChangeSectorSel($event)">
+          <span class="caret"></span>
+          <option role="menuitem" *ngFor="let sector of sectorList" role="menu" aria-labelledby="button-basic" [ngValue]="sector">{{sector.sectorName}}</option>
+        </select>
       </div>
-    </div>
-  </td>
-</tr>
+
+    </td>
+    <td><input type="text"  formControlName="app_sector_approvalName"></td>
+      <td>
+        <input type="text" class=" input-sm form-control</form>" #dp="bsDatepicker" bsDatepicker
+                 [bsConfig] = "datePickerConfig" [bsConfig]="{dateInputFormat: 'DD MMM YYYY'}" [bsValue]="bsValue" formControlName="app_sector_approvalDate">
+      </td>
+        <td>
+            <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+          <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+        </td>
+      </div>
+    </tr>
     </tbody>
+
   </table>
 
-  <button type="button" class="btn btn-sm btn-secondary">Add More</button>
-  <pre>{{approvalsForm.value | json}}</pre>
+<button type="submit" (click)="addSectors()">+Add</button>
+
+
+  <table class="table table-sm table-responsive-sm">
+    <thead>
+    <tr>
+      <th>Country</th>
+      <th>Name</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+
+    <tbody formArrayName="countries">
+
+    <tr *ngFor="let country of approvalForm.controls.countries.controls; let i=index" [formGroupName]="i">
+
+      <td>
+
+        <div >
+          <select type="button"  id="button-basic" dropdownToggle type="text" class="btn btn-sm dropdown-toggle"
+                  aria-controls="dropdown-basic" formControlName="app_country_approvalCountries" (ngModelChange)="onChangeCountrySel($event)">
+            <span class="caret"></span>
+            <option role="menuitem" *ngFor="let country of countryList" role="menu" aria-labelledby="button-basic" [ngValue]="country">{{country.countryName}}</option>
+          </select>
+        </div>
+
+      </td>
+
+      <td><input type="text" FormControlName="app_country_approvalName"></td>
+      <td>
+        <input type="text" class=" input-sm form-control</form>" #dp="bsDatepicker" bsDatepicker
+                [bsConfig]="{dateInputFormat: 'DD MMM YYYY'}" [bsValue]="bsValue" FormControlName="app_country_approvalDate">
+      </td>
+
+
+
+    </tr>
+    </tbody>
+
+  </table>
+
+  <button type="submit" (click)="addCountry()">add country</button>
+
+
+
+  <button type="submit" (click)="onSubmit()">Submit</button>
 </form>
+
