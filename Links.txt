@@ -3,3 +3,5 @@ https://alligator.io/angular/reactive-forms-formarray-dynamic-fields/
 https://scotch.io/tutorials/how-to-build-nested-model-driven-forms-in-angular-2
 
 https://stackoverflow.com/questions/38007236/how-to-dynamically-add-and-remove-form-fields-in-angular-2
+
+https://github.com/nehalist/angular-rest-upload
