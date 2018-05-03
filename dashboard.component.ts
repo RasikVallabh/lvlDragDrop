@@ -13,7 +13,8 @@ import {FileUploaderComponent} from '../file-uploader/file-uploader.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [DatePipe]
 })
 export class DashboardComponent implements OnInit {
 
@@ -30,10 +31,11 @@ export class DashboardComponent implements OnInit {
   countryList: CountryModel[] = [new CountryModel('country1',12,'countrydesc'),new CountryModel('country2',12,'countrydesc'),new CountryModel('country3',12,'countrydesc'),new CountryModel('Country4',12,'sectordesc'),new CountryModel('Country5',12,'sectordesc')];
   sectorTemp: SectorModel;
   @ViewChild('fileInput') fileInput: ElementRef;
+  nowDate = new Date();
   /*MOCK DATA CREATION START*/
 
   /*MOCK DATA CREATION END*/
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private datePipe: DatePipe) {
 
   }
   ngOnInit() {
@@ -47,7 +49,7 @@ export class DashboardComponent implements OnInit {
     return this._fb.group({
       app_sector_approvalName: new FormControl(''),
       app_sector_approvalSector: new FormControl(SectorModel),
-      app_sector_approvalDate: new FormControl(new Date()),
+      app_sector_approvalDate: new FormControl(Date),
       avtar: new FormControl()
     });
   }
@@ -84,14 +86,22 @@ export class DashboardComponent implements OnInit {
   }
   onChangeSectorSel(event) {
     this.approvalForm.patchValue({app_sector_approvalSector: event });
+    console.log(this.approvalForm.value.sectors[0].app_sector_approvalDate);
+    this.datePipe.transform(this.approvalForm.value.sectors[0].app_sector_approvalDate, 'dd MMM yyyy');
+    console.log(this.datePipe.transform(this.approvalForm.value.sectors[0].app_sector_approvalDate, 'dd MMM yyyy'));
   }
   onChangeCountrySel(event) {
     this.approvalForm.patchValue({app_country_approvalCountries: event });
-    console.log('BEFORE:::' + this.approvalForm.value.sectors[0].app_sector_approvalDate);
-    this.approvalForm.patchValue({app_country_approvalDate:
-        new DatePipe(navigator.language)
-          .transform(this.approvalForm.value.sectors[0].app_sector_approvalDate, 'DD MMM YYYY') });
-    console.log('AFTER:::' + this.approvalForm.value.sectors[0].app_sector_approvalDate + ':::::::' + this.datePickerConfig.value);
+
+}
+onChangeDate(event) {
+    console.log(event);
+    
+    this.nowDate = new Date( this.datePipe.transform(event, 'dd MMM yyyy'));
+    console.log("CHANGEEVENT:::" + this.datePipe.transform(event, 'dd MMM yyyy'));
+    console.log("CHANGEEVENT::value:::" + this.nowDate);
+    this.approvalForm.patchValue({app_sector_approvalDate: this.nowDate });
+    console.log("this.approvalForm:::" + this.approvalForm.value);
   }
 
   onFileChange(event) {

@@ -26,8 +26,8 @@
     </td>
     <td><input type="text"  formControlName="app_sector_approvalName"></td>
       <td>
-        <input type="text" class=" input-sm form-control</form>" #dp="bsDatepicker" bsDatepicker
-                 [bsConfig] = "datePickerConfig" [bsConfig]="{dateInputFormat: 'DD MMM YYYY'}" [bsValue]="bsValue" formControlName="app_sector_approvalDate">
+        <input type="text" class=" input-sm" #dp="bsDatepicker" bsDatepicker
+                  [bsConfig]="{dateInputFormat: 'DD MMM YYYY'}" formControlName="app_sector_approvalDate" (ngModelChange)="onChangeDate($event)">
       </td>
         <td>
             <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
