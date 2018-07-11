@@ -67,7 +67,18 @@
 
       </td>
 
-      <td><input type="text" FormControlName="app_country_approvalName"></td>
+      <td><input type="text" FormControlName="app_country_approvalName">
+        <button (click)="showDialog = !showDialog" class="btn">Open</button>
+      </td>
+      <app-dialog [(visible)]="showDialog">
+          <input type="text" name="searchtype" value="name">
+          <br>
+        <input type="radio" name="searchtype" value="name">Name
+        <input type="radio" name="searchtype" value="company">company
+        <input type="radio" name="searchtype" value="organization">Client
+        <button (click)="showDialog = !showDialog" class="btn">Close</button>
+        
+      </app-dialog>
       <td>
         <input type="text" class=" input-sm form-control</form>" #dp="bsDatepicker" bsDatepicker
                 [bsConfig]="{dateInputFormat: 'DD MMM YYYY'}" [bsValue]="bsValue" FormControlName="app_country_approvalDate">
